@@ -18,7 +18,7 @@ public class Death : MonoBehaviour
             if(livesRemaining >0)
             {
                 livesRemaining--;
-                gameObject.transform.position = new Vector3(-7, 5, 0);
+                gameObject.transform.position = new Vector3(-31, -1, 0);
                 lifeCounter.text = "Lives: " + livesRemaining.ToString();
             }
             else
