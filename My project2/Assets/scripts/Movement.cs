@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,6 +13,8 @@ public class Movement : MonoBehaviour
     private bool grounded = true;
     private Rigidbody2D rb;
     private Vector3 startLocation;
+   
+    
     private void Start()
     {
         Vector2 startLocation = gameObject.transform.position;
@@ -23,6 +27,7 @@ public class Movement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             grounded = false;
+            
         }
 
         if (Input.GetKey("d"))
@@ -44,4 +49,11 @@ public class Movement : MonoBehaviour
             grounded = true;
         }
     }
-}
+
+  
+        
+            
+    }
+
+    
+
