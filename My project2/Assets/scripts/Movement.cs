@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
     private bool grounded = true;
     private Rigidbody2D rb;
     private Vector3 startLocation;
+    public int maxJumpps = 2;
+    int remainingJumps;
     private void Start()
     {
         Vector2 startLocation = gameObject.transform.position;
@@ -19,10 +21,11 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey("w") && grounded)
+        if(Input.GetKey("w") && grounded && remainingJumps > 0)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             grounded = false;
+            remainingJumps--;
         }
 
         if (Input.GetKey("d"))
@@ -42,6 +45,7 @@ public class Movement : MonoBehaviour
         if(collision.gameObject.CompareTag("ground"))
         {
             grounded = true;
+            remainingJumps = maxJumpps;
         }
     }
 }
