@@ -3,7 +3,7 @@ using System;
 using UnityEditor;
 using UnityEngine.SceneManagement; // Required for scene management
 
-public class SceneChanger : MonoBehaviour
+public class SceneChange : MonoBehaviour
 {
     // Method to change the scene by name
     public void ChangeScene(string sceneName)

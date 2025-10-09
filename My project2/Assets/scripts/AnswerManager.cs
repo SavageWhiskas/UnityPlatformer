@@ -29,7 +29,7 @@ public class AnswerMnager : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            bool correct = m_QuestionManagerRef.CheckAnswer(m_AnswerText);
+            bool correct = m_QuestionManagerRef; 
 
             if (correct)
             {
