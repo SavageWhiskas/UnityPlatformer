@@ -1,51 +1,86 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Movement : MonoBehaviour
+public class MovementScript : MonoBehaviour
 {
-    [SerializeField] private float jumpForce = 2f;
-    [SerializeField] private float walkForce = 1f;
+    float horizontalInput;
+    public float movespeed = 5f;
 
-    private bool grounded = true;
-    private Rigidbody2D rb;
-    private Vector3 startLocation;
-    public int maxJumpps = 2;
+    Rigidbody2D rb;
+    public float jumpPower = 4f;
+    bool isJumping => rb.velocity.y > 0.1f;
+    bool isFalling => rb.velocity.y < -0.1f;
+    public int maxJumps = 2;
     int remainingJumps;
-    private void Start()
+    bool isGrounded = true;
+    // Start is called before the first frame update
+    void Start()
     {
-        Vector2 startLocation = gameObject.transform.position;
         rb = GetComponent<Rigidbody2D>();
+        remainingJumps = maxJumps;
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey("w") && grounded && remainingJumps > 0)
+
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        Flipsprite();
+
+
+        if (Input.GetButtonDown("Jump") && remainingJumps > 0)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
-            grounded = false;
+            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+
             remainingJumps--;
+            isGrounded = false;
         }
 
-        if (Input.GetKey("d"))
-        {
-            rb.AddForce(-Vector3.left * walkForce, ForceMode2D.Force);
-        }
 
-        if (Input.GetKey("a"))
-        {
-            rb.AddForce(Vector3.left * walkForce, ForceMode2D.Force);
-        }
+
+
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            grounded = true;
-            remainingJumps = maxJumpps;
+            remainingJumps = maxJumps;
+
         }
+
+
+    }
+
+
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontalInput * movespeed, rb.velocity.y);
+    }
+
+    void Flipsprite()
+    {
+        print(horizontalInput);
+        if (horizontalInput < -1.0f)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (horizontalInput > 1.0f)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
     }
 }
+
+
+
+
+
+ 
