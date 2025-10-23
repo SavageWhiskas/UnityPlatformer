@@ -41,6 +41,7 @@ public class SignScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playerEntered = false;
+            questionPanel.SetActive(false);
         }
     }
 

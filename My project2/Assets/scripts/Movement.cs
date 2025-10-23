@@ -18,11 +18,13 @@ public class MovementScript : MonoBehaviour
     public int maxJumps = 2;
     int remainingJumps;
     bool isGrounded = true;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         remainingJumps = maxJumps;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class MovementScript : MonoBehaviour
             isGrounded = false;
         }
 
-
+      
 
 
     }
@@ -62,6 +64,7 @@ public class MovementScript : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontalInput * movespeed, rb.velocity.y);
+        animator.SetFloat("speed", 1); 
     }
 
     void Flipsprite()
