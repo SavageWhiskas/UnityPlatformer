@@ -17,6 +17,7 @@ public class MovementScript : MonoBehaviour
     public float jumpPower = 4f;
     bool isJumping => rb.velocity.y > 0.1f;
     bool isFalling => rb.velocity.y < -0.1f;
+    public bool answering = false;
     public int maxJumps = 2;
     int remainingJumps;
     bool isGrounded = true;
@@ -37,7 +38,7 @@ public class MovementScript : MonoBehaviour
         
 
 
-        if (Input.GetButtonDown("Jump") && remainingJumps > 0)
+        if (Input.GetButtonDown("Jump") && remainingJumps > 0 && !answering)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
             animator.SetTrigger("jump");
@@ -65,9 +66,13 @@ public class MovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontalInput * movespeed, rb.velocity.y);
-        animator.SetFloat("Speed", Math.Abs(horizontalInput));
-        Flipsprite(); 
+        if(!answering)
+        {
+            rb.velocity = new Vector2(horizontalInput * movespeed, rb.velocity.y);
+            animator.SetFloat("Speed", Math.Abs(horizontalInput));
+            Flipsprite();
+
+        }
     }
 
     void Flipsprite()
@@ -84,7 +89,7 @@ public class MovementScript : MonoBehaviour
 
     }
 
-   
+    
     
 }
 
