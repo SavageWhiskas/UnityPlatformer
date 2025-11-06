@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+
 
 public class MovementScript : MonoBehaviour
 {
@@ -32,13 +34,13 @@ public class MovementScript : MonoBehaviour
     {
 
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        Flipsprite();
+        
 
 
         if (Input.GetButtonDown("Jump") && remainingJumps > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-
+            animator.SetTrigger("jump");
             remainingJumps--;
             isGrounded = false;
         }
@@ -64,22 +66,26 @@ public class MovementScript : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontalInput * movespeed, rb.velocity.y);
-        animator.SetFloat("speed", 1); 
+        animator.SetFloat("Speed", Math.Abs(horizontalInput));
+        Flipsprite(); 
     }
 
     void Flipsprite()
     {
         print(horizontalInput);
-        if (horizontalInput < -1.0f)
+        if (horizontalInput < 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if (horizontalInput > 1.0f)
+        else if (horizontalInput > 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
 
     }
+
+   
+    
 }
 
 

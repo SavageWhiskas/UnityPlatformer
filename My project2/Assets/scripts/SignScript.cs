@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.UI;
+using System.Diagnostics.CodeAnalysis;
 
 
 public class SignScript : MonoBehaviour
 {
     private bool playerEntered  = false;
     public GameObject questionPanel; 
+    public MovementScript  movement; 
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +24,14 @@ public class SignScript : MonoBehaviour
 
             questionPanel.SetActive(!questionPanel.activeSelf);
             Debug.Log("Player opened sign");
+            movement.enabled = false; 
+           
 
 
 
         }
+        
+    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +39,7 @@ public class SignScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playerEntered = true;
+            
         }
     }
 
@@ -42,6 +49,7 @@ public class SignScript : MonoBehaviour
         {
             playerEntered = false;
             questionPanel.SetActive(false);
+           
         }
     }
 
