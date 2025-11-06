@@ -31,7 +31,7 @@ public class SignScript : MonoBehaviour
 
 
         }
-        else if (playerEntered && Input.GetKeyDown(KeyCode.E) && movement.answering)
+        else if (playerEntered && Input.GetKeyDown(KeyCode.Escape) && movement.answering)
         {
             questionPanel.SetActive(false);
             movement.answering = false;
