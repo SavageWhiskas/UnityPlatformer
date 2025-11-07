@@ -22,6 +22,13 @@ public class MovementScript : MonoBehaviour
     int remainingJumps;
     bool isGrounded = true;
     private Animator animator;
+
+    public Transform attackPoint; // The position of the attack (e.g., weapon or hand)
+    public float attackRange = 0.5f; // Range of the melee attack
+    public LayerMask enemyLayers; // Layer mask to detect enemies
+    public int attackDamage = 20; // Damage dealt to enemies
+    public float attackRate = 2f; // Attacks per second
+    private float nextAttackTime = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +53,15 @@ public class MovementScript : MonoBehaviour
             isGrounded = false;
         }
 
-      
+        if (Time.time >= nextAttackTime && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Attack();
+            nextAttackTime = Time.time + 1f / attackRate;
+            
+
+        }
+
+
 
 
     }
@@ -90,7 +105,34 @@ public class MovementScript : MonoBehaviour
     }
 
     
-    
+
+    void Attack()
+    {
+        animator.SetTrigger("attack");
+        Debug.Log("Attack!");
+
+
+        // Detect enemies in range of the attack
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        // Damage each enemy
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Hit " + enemy.name);
+            enemy.GetComponent<Enemy>().TakeDamage(attackDamage); // Ensure enemies have a TakeDamage method
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Visualize the attack range in the editor
+        if (attackPoint == null) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+
+
 }
 
 

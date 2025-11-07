@@ -1860,6 +1860,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &530643803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 530643804}
+  m_Layer: 0
+  m_Name: attackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &530643804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530643803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.247, y: -0.166, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1327992214}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545797935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,9 +2021,9 @@ GameObject:
   m_Component:
   - component: {fileID: 617157769}
   - component: {fileID: 617157768}
-  - component: {fileID: 617157767}
   - component: {fileID: 617157771}
   - component: {fileID: 617157770}
+  - component: {fileID: 617157772}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -2000,35 +2031,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &617157767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617157766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c63703f24601df94b897e7ccae0b648b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  patrolSpeed: 2
-  chaseSpeed: 5
-  attackRange: 1.5
-  attackCooldown: 1
-  sightRange: 10
-  evadeRange: 3
-  aggroRange: 8
-  health: 100
-  canEvade: 1
-  canAttack: 1
-  canChase: 1
-  retreatHealthThreshold: 0.3
-  patrolPoints:
-  - {fileID: 426211645}
-  - {fileID: 1511504890}
-  footstepSound: {fileID: 0}
 --- !u!212 &617157768
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2171,6 +2173,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &617157772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617157766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70df4132c0020d46921ff762f3dc443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
 --- !u!1 &662366648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3108,10 +3123,11 @@ Transform:
   m_GameObject: {fileID: 1327992211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.63, y: -2.27, z: 1}
+  m_LocalPosition: {x: -36.92, y: -2.23, z: 1}
   m_LocalScale: {x: 2.4455934, y: 1.9748497, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 530643804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1327992216
@@ -3130,6 +3146,13 @@ MonoBehaviour:
   jumpPower: 4
   answering: 0
   maxJumps: 2
+  attackPoint: {fileID: 530643804}
+  attackRange: 0.5
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  attackDamage: 20
+  attackRate: 4
 --- !u!114 &1327992217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3143,8 +3166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   livesRemaining: 3
-  health: 100
-  spawnPoint: {fileID: 2067673956}
+  spawnPoint: {fileID: 0}
   lifeCounter: {fileID: 0}
   HPCounter: {fileID: 0}
 --- !u!61 &1327992218
