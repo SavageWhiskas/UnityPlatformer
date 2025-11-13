@@ -10,6 +10,7 @@ public class SignScript : MonoBehaviour
     private bool playerEntered  = false;
     public GameObject questionPanel; 
     public MovementScript movement;
+    public QuestionManager questionManager;
      
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class SignScript : MonoBehaviour
             questionPanel.SetActive(!questionPanel.activeSelf);
             Debug.Log("Player opened sign");
             movement.answering = true;
-           
+            questionManager.getQuestion(1);
 
 
 

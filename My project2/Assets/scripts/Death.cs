@@ -36,22 +36,22 @@ public class Death : MonoBehaviour
             }
         }
         //This is called if an object with tag hazard is hit
-        if(collision.gameObject.CompareTag("Hazard"))
-        {
-            //as opposed to the death collider, with the health collider the player merely takes damage. If this damage takes them to 0 - then they die!
-            health -= collision.gameObject.GetComponent<MyDamage>().myDamage;
-            if (health <= 0)
-            {
-                Die();
-            }
-            else
-            {
-                //restarts the level if they run out of lives
-                ReloadScene();
-            }
-            //This updates the text that says the players health
-            HPCounter.text = "HP: " + health.ToString();
-        }
+        //if(collision.gameObject.CompareTag("Hazard"))
+        //{
+        //    //as opposed to the death collider, with the health collider the player merely takes damage. If this damage takes them to 0 - then they die!
+        //    health -= collision.gameObject.GetComponent<MyDamage>().myDamage;
+        //    if (health <= 0)
+        //    {
+        //        Die();
+        //    }
+        //    else
+        //    {
+        //        //restarts the level if they run out of lives
+        //        ReloadScene();
+        //    }
+        //    //This updates the text that says the players health
+        //    HPCounter.text = "HP: " + health.ToString();
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
